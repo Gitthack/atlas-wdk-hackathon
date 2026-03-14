@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas - Self-Custodial Bounty Hunter</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 40px 0; border-bottom: 1px solid #333; }
+        header h1 { font-size: 2.5em; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+        header p { color: #888; font-size: 1.1em; }
+        .status-badge { display: inline-block; padding: 8px 16px; background: #22c55e; color: #000; border-radius: 20px; font-weight: bold; margin-top: 15px; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 30px; }
+        @media (min-width: 768px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+        .card { background: #1a1a1a; border-radius: 12px; padding: 20px; border: 1px solid #333; }
+        .card h2 { font-size: 0.8em; text-transform: uppercase; color: #888; margin-bottom: 10px; letter-spacing: 1px; }
+        .card .value { font-size: 1.8em; font-weight: bold; color: #fff; }
+        .card .sub-value { font-size: 0.85em; color: #666; margin-top: 5px; }
+        .positive { color: #22c55e; }
+        .negative { color: #ef4444; }
+        .neutral { color: #3b82f6; }
+        .wallet-info, .transactions { background: #1a1a1a; border-radius: 12px; padding: 20px; margin-top: 20px; border: 1px solid #333; }
+        .wallet-info h2, .transactions h2 { color: #888; font-size: 0.8em; text-transform: uppercase; margin-bottom: 15px; }
+        .address { font-family: monospace; background: #0a0a0a; padding: 12px; border-radius: 8px; word-break: break-all; font-size: 0.85em; color: #3b82f6; }
+        .explorer-link { display: inline-block; margin-top: 10px; color: #667eea; text-decoration: none; }
+        footer { text-align: center; padding: 30px 0; color: #666; border-top: 1px solid #333; margin-top: 30px; font-size: 0.85em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 Atlas</h1>
+            <p>Self-Custodial Bounty Hunter</p>
+            <span class="status-badge">● Operational</span>
+        </header>
+        
+        <div class="grid">
+            <div class="card">
+                <h2>Net Profit</h2>
+                <div class="value positive">$216.00</div>
+                <div class="sub-value">Lifetime earnings</div>
+            </div>
+            <div class="card">
+                <h2>Total Income</h2>
+                <div class="value">$225.00</div>
+                <div class="sub-value">From bounties</div>
+            </div>
+            <div class="card">
+                <h2>Total Expenses</h2>
+                <div class="value negative">$9.00</div>
+                <div class="sub-value">Operational costs</div>
+            </div>
+            <div class="card">
+                <h2>ROI</h2>
+                <div class="value neutral">24.0x</div>
+                <div class="sub-value">Return on investment</div>
+            </div>
+        </div>
+        
+        <div class="wallet-info">
+            <h2>🔗 Agent Wallet (Sepolia Testnet)</h2>
+            <div class="address">0x436a00ee78b0e09979fb5946493dfbb81a886880</div>
+            <a href="https://sepolia.etherscan.io/address/0x436a00ee78b0e09979fb5946493dfbb81a886880" target="_blank" class="explorer-link">View on Etherscan →</a>
+            <div style="margin-top: 15px;">
+                <strong>Balances:</strong>
+                <span style="margin-left: 10px;">ETH: 0.0000</span>
+                <span style="margin-left: 20px;">USDT: 216.00</span>
+            </div>
+        </div>
+        
+        <div class="transactions">
+            <h2>📊 Recent Transactions</h2>
+            
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
+            <div>
+                <div style="font-weight: bold; color: #22c55e; text-transform: uppercase;">income</div>
+                <div style="color: #666; font-size: 0.85em; margin-top: 5px;">GitHub #1152</div>
+            </div>
+            <div style="font-family: monospace; font-size: 1.1em; color: #22c55e;">
+                +$75.00 USDT
+            </div>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
+            <div>
+                <div style="font-weight: bold; color: #ef4444; text-transform: uppercase;">expense</div>
+                <div style="color: #666; font-size: 0.85em; margin-top: 5px;">task_1152</div>
+            </div>
+            <div style="font-family: monospace; font-size: 1.1em; color: #ef4444;">
+                -$2.00 USDT
+            </div>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
+            <div>
+                <div style="font-weight: bold; color: #ef4444; text-transform: uppercase;">expense</div>
+                <div style="color: #666; font-size: 0.85em; margin-top: 5px;">infrastructure</div>
+            </div>
+            <div style="font-family: monospace; font-size: 1.1em; color: #ef4444;">
+                -$5.00 USDT
+            </div>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
+            <div>
+                <div style="font-weight: bold; color: #ef4444; text-transform: uppercase;">expense</div>
+                <div style="color: #666; font-size: 0.85em; margin-top: 5px;">api_cost</div>
+            </div>
+            <div style="font-family: monospace; font-size: 1.1em; color: #ef4444;">
+                -$2.00 USDT
+            </div>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
+            <div>
+                <div style="font-weight: bold; color: #22c55e; text-transform: uppercase;">income</div>
+                <div style="color: #666; font-size: 0.85em; margin-top: 5px;">Bounty #1153 - Bug Fix</div>
+            </div>
+            <div style="font-family: monospace; font-size: 1.1em; color: #22c55e;">
+                +$50.00 USDT
+            </div>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
+            <div>
+                <div style="font-weight: bold; color: #22c55e; text-transform: uppercase;">income</div>
+                <div style="color: #666; font-size: 0.85em; margin-top: 5px;">Bounty #1152 - MCP Server</div>
+            </div>
+            <div style="font-family: monospace; font-size: 1.1em; color: #22c55e;">
+                +$100.00 USDT
+            </div>
+        </div>
+        
+        </div>
+        
+        <footer>
+            <p>Atlas - Autonomous Economic Agent for Tether Hackathon Galáctica 2026</p>
+            <p style="margin-top: 10px;">
+                <a href="https://github.com/Gitthack/atlas-wdk-hackathon" style="color: #667eea;">GitHub</a> • 
+                Sepolia Testnet • WDK Compatible
+            </p>
+            <p style="margin-top: 10px; font-size: 0.8em;">Generated: 2026-03-14 20:46:43</p>
+        </footer>
+    </div>
+</body>
+</html>
