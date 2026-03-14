@@ -1,0 +1,52 @@
+# WDK Configuration for Atlas
+# Wallet Development Kit - Tether
+
+# Network Configuration
+network: testnet  # Options: testnet, mainnet
+
+# Wallet Settings
+wallet:
+  derivation_path: "m/44'/60'/0'/0/0"  # Ethereum path
+  backup_enabled: true
+  backup_path: ~/.atlas/wallet_backup.json
+  
+# Supported Chains (Tether WDK supports these)
+chains:
+  - ethereum
+  - arbitrum
+  - polygon
+  - solana
+  - ton
+
+# Token Configuration
+tokens:
+  USDT:
+    contract_mainnet: "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+    contract_testnet: "0x..."  # Testnet contract
+    decimals: 6
+  USDC:
+    contract_mainnet: "0xA0b86a33E6441e0A421e56E4773C3C4b0Db7E5e5"
+    decimals: 6
+
+# API Endpoints (Placeholder for WDK integration)
+api:
+  wdk_endpoint: https://api.wdk.tether.io/v1
+  ethereum_rpc: https://mainnet.infura.io/v3/YOUR_KEY
+  
+# Agent Economic Settings
+economics:
+  daily_budget_usd: 50
+  stop_loss_threshold: -20
+  auto_compound: false
+  profit_sharing: 0.0  # 0% to external, 100% stays in agent
+
+# Security
+security:
+  require_confirmation_above: 100  # USD threshold for manual confirmation
+  max_slippage: 0.02  # 2% max slippage for trades
+  
+# Logging
+logging:
+  level: INFO
+  on_chain_logging: true
+  ledger_export_interval: 86400  # seconds (daily)

@@ -1,0 +1,15 @@
+# Atlas WDK Hackathon Requirements
+
+# WDK & Blockchain
+pyyaml>=6.0
+httpx>=0.28.0
+
+# MCP (Model Context Protocol)
+mcp>=1.26.0
+
+# Web Dashboard (optional)
+flask>=3.0.0
+
+# Utils
+python-dotenv>=1.0.0
+requests>=2.31.0
