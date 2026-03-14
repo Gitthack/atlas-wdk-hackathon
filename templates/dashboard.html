@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas - Self-Custodial Bounty Hunter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            color: #888;
+            font-size: 1.1em;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #22c55e;
+            color: #000;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .card {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #333;
+        }
+        
+        .card h2 {
+            font-size: 0.9em;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        
+        .card .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .card .sub-value {
+            font-size: 1em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .positive { color: #22c55e; }
+        .negative { color: #ef4444; }
+        .neutral { color: #3b82f6; }
+        
+        .wallet-info {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+            border: 1px solid #333;
+        }
+        
+        .wallet-info h2 {
+            color: #888;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        
+        .address {
+            font-family: monospace;
+            background: #0a0a0a;
+            padding: 15px;
+            border-radius: 8px;
+            word-break: break-all;
+            font-size: 0.95em;
+            color: #3b82f6;
+        }
+        
+        .explorer-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .explorer-link:hover {
+            text-decoration: underline;
+        }
+        
+        .transactions {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+            border: 1px solid #333;
+        }
+        
+        .transactions h2 {
+            color: #888;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        
+        .tx-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #0a0a0a;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .tx-type {
+            font-weight: bold;
+        }
+        
+        .tx-income { color: #22c55e; }
+        .tx-expense { color: #ef4444; }
+        
+        .tx-amount {
+            font-family: monospace;
+            font-size: 1.1em;
+        }
+        
+        .tx-source {
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #666;
+            border-top: 1px solid #333;
+            margin-top: 40px;
+        }
+        
+        .refresh-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        .refresh-btn:hover {
+            background: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 Atlas</h1>
+            <p>Self-Custodial Bounty Hunter</p>
+            <span class="status-badge">● Operational</span>
+        </header>
+        
+        <div class="grid">
+            <div class="card">
+                <h2>Net Profit</h2>
+                <div class="value positive" id="net-profit">$143.00</div>
+                <div class="sub-value">Lifetime earnings</div>
+            </div>
+            
+            <div class="card">
+                <h2>Total Income</h2>
+                <div class="value" id="total-income">$150.00</div>
+                <div class="sub-value">From bounties</div>
+            </div>
+            
+            <div class="card">
+                <h2>Total Expenses</h2>
+                <div class="value negative" id="total-expense">$7.00</div>
+                <div class="sub-value">Operational costs</div>
+            </div>
+            
+            <div class="card">
+                <h2>ROI</h2>
+                <div class="value neutral" id="roi">20.4x</div>
+                <div class="sub-value">Return on investment</div>
+            </div>
+        </div>
+        
+        <div class="wallet-info">
+            <h2>🔗 Agent Wallet (Sepolia Testnet)</h2>
+            <div class="address" id="wallet-address">0xC618725aC6ea662b72aC0657924A0F67D315874A</div>
+            <a href="https://sepolia.etherscan.io/address/0xC618725aC6ea662b72aC0657924A0F67D315874A" 
+               target="_blank" class="explorer-link">
+               View on Etherscan →
+            </a>
+            <div style="margin-top: 15px;">
+                <strong>Balances:</strong>
+                <span id="eth-balance" style="margin-left: 10px;">ETH: Loading...</span>
+                <span id="usdt-balance" style="margin-left: 20px;">USDT: 146.00</span>
+            </div>
+        </div>
+        
+        <div class="transactions">
+            <h2>📊 Recent Transactions</h2>
+            <div id="tx-list">
+                <div class="loading">Loading transactions...</div>
+            </div>
+            <button class="refresh-btn" onclick="loadData()">Refresh Data</button>
+        </div>
+        
+        <footer>
+            <p>Atlas - Autonomous Economic Agent for Tether Hackathon Galáctica 2026</p>
+            <p style="margin-top: 10px; font-size: 0.85em;">
+                <a href="https://github.com/Gitthack/atlas-wdk-hackathon" style="color: #667eea;">GitHub</a> • 
+                Sepolia Testnet • WDK Compatible
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        async function loadData() {
+            try {
+                // Load status
+                const statusRes = await fetch('/api/status');
+                const status = await statusRes.json();
+                
+                if (status.success) {
+                    const data = status.data.wallet;
+                    document.getElementById('net-profit').textContent = `$${data.net_profit.toFixed(2)}`;
+                    document.getElementById('total-income').textContent = `$${data.total_income.toFixed(2)}`;
+                    document.getElementById('total-expense').textContent = `$${data.total_expense.toFixed(2)}`;
+                    document.getElementById('roi').textContent = `${data.roi.toFixed(1)}x`;
+                    document.getElementById('wallet-address').textContent = data.address;
+                    
+                    if (data.balances.ETH !== undefined) {
+                        document.getElementById('eth-balance').textContent = `ETH: ${data.balances.ETH.toFixed(4)}`;
+                    }
+                    if (data.balances.USDT !== undefined) {
+                        document.getElementById('usdt-balance').textContent = `USDT: ${data.balances.USDT.toFixed(2)}`;
+                    }
+                }
+                
+                // Load transactions
+                const txRes = await fetch('/api/transactions');
+                const txData = await txRes.json();
+                
+                if (txData.success) {
+                    const txList = document.getElementById('tx-list');
+                    txList.innerHTML = '';
+                    
+                    txData.data.forEach(tx => {
+                        const div = document.createElement('div');
+                        div.className = 'tx-item';
+                        div.innerHTML = `
+                            <div>
+                                <div class="tx-type tx-${tx.type}">${tx.type.toUpperCase()}</div>
+                                <div class="tx-source">${tx.source || tx.category}</div>
+                            </div>
+                            <div class="tx-amount ${tx.type === 'income' ? 'positive' : 'negative'}">
+                                ${tx.type === 'income' ? '+' : '-'}$${tx.amount.toFixed(2)} ${tx.token}
+                            </div>
+                        `;
+                        txList.appendChild(div);
+                    });
+                }
+            } catch (e) {
+                console.error('Error loading data:', e);
+                document.getElementById('tx-list').innerHTML = '<div class="loading">Error loading data. Refresh to try again.</div>';
+            }
+        }
+        
+        // Load on page load
+        loadData();
+        
+        // Auto refresh every 30 seconds
+        setInterval(loadData, 30000);
+    </script>
+</body>
+</html>
