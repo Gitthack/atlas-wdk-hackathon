@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Atlas Autonomous Bounty Hunter - Full Integration
-Connects scanner, validator, wallet, and dashboard
+Connects scanner, validator, wallet, dashboard, and notifications
 """
 import os
 import sys
@@ -13,10 +13,14 @@ from datetime import datetime
 sys.path.insert(0, os.path.expanduser('~/.openclaw/workspace/scripts'))
 sys.path.insert(0, 'src/wdk_wallet')
 sys.path.insert(0, 'src/atlas_core')
+sys.path.insert(0, 'src/scanner')
+sys.path.insert(0, 'src/notifications')
 
-from atlas_scanner import GitHubScanner
+from atlas_scanner import GitHubScanner, GITHUB_SEARCH_QUERIES
 from atlas_task_validator import TaskValidator
 from integration import AtlasWDKIntegration
+from multi_platform import MultiPlatformScanner
+from notifier import NotificationManager
 
 WORKSPACE = os.path.expanduser('~/.openclaw/workspace')
 STATE_DIR = os.path.join(WORKSPACE, 'atlas-hackathon', 'state')
@@ -26,17 +30,19 @@ class AutonomousAtlas:
     Fully autonomous Atlas agent.
     
     Workflow:
-    1. Scan for bounties
+    1. Scan for bounties (multi-platform)
     2. Validate each task
     3. Check economic viability (ROI, budget)
     4. Execute if approved
     5. Record all economics
+    6. Send notifications
     """
     
     def __init__(self, github_token=None):
-        self.scanner = GitHubScanner(token=github_token)
+        self.scanner = MultiPlatformScanner(github_token=github_token)
         self.validator = TaskValidator(github_token=github_token)
         self.economics = AtlasWDKIntegration()
+        self.notifier = NotificationManager()
         
         # Ensure state directory exists
         os.makedirs(STATE_DIR, exist_ok=True)
@@ -73,56 +79,9 @@ class AutonomousAtlas:
         print("🔍 Atlas Autonomous Scan")
         print("=" * 60)
         
-        # Scan for tasks using the scanner module
-        print("\n[1] Scanning GitHub for bounties...")
-        
-        # Import and run the scan function
-        sys.path.insert(0, os.path.expanduser('~/.openclaw/workspace/scripts'))
-        from atlas_scanner import scan_github, GITHUB_SEARCH_QUERIES
-        
-        # Manually scan using the scanner
-        tasks = []
-        for query in GITHUB_SEARCH_QUERIES[:2]:  # Limit to 2 queries for speed
-            issues = self.scanner.search_issues(query, per_page=3)
-            
-            for issue in issues:
-                title = issue.get("title", "")
-                body = issue.get("body", "") or ""
-                html_url = issue.get("html_url", "")
-                
-                # Extract bounty
-                bounty = self.scanner.extract_bounty_amount(title, body)
-                if not bounty or bounty < 50:
-                    continue
-                
-                # Assess complexity
-                complexity = self.scanner.assess_complexity(
-                    title, body, issue.get("labels", [])
-                )
-                
-                # Estimate cost based on complexity
-                cost_map = {"low": 5, "medium": 15, "high": 50}
-                estimated_cost = cost_map.get(complexity, 15)
-                
-                task = {
-                    "id": issue.get("id"),
-                    "title": title,
-                    "url": html_url,
-                    "bounty": bounty,
-                    "complexity": complexity,
-                    "estimated_cost": estimated_cost,
-                    "platform": "github",
-                    "found_at": datetime.now().isoformat(),
-                    "status": "new"
-                }
-                tasks.append(task)
-                
-                if len(tasks) >= max_tasks:
-                    break
-            
-            if len(tasks) >= max_tasks:
-                break
-        
+        # Scan for tasks using multi-platform scanner
+        print("\n[1] Scanning all platforms for bounties...")
+        tasks = self.scanner.scan_all_platforms()
         print(f"    Found {len(tasks)} potential tasks")
         
         approved_tasks = []
@@ -168,6 +127,10 @@ class AutonomousAtlas:
                 "economic_decision": economic_decision
             })
             self.state["tasks_approved"].append(task_id)
+            
+            # Send notification
+            task['roi'] = economic_decision['roi']
+            self.notifier.notify_task_approved(task, economic_decision)
         
         self.state["last_scan"] = datetime.now().isoformat()
         self.state["total_bounties_found"] += len(tasks)
@@ -227,12 +190,16 @@ class AutonomousAtlas:
             self.state["tasks_executed"].append(task_id)
             self._save_state()
             
-            return {
+            # Send notification
+            result = {
                 "success": True,
                 "cost": estimated_cost,
                 "income": bounty,
                 "profit": bounty - estimated_cost
             }
+            self.notifier.notify_task_completed(task, result)
+            
+            return result
             
         except Exception as e:
             print(f"    ❌ Execution failed: {e}")
@@ -294,6 +261,17 @@ class AutonomousAtlas:
         print(f"   Tasks Approved: {summary['statistics']['tasks_approved']}")
         print(f"   Tasks Executed: {summary['statistics']['tasks_executed']}")
         print(f"\n🔗 Wallet: {summary['wallet_address']}")
+        
+        # Send daily summary notification
+        self.notifier.notify_daily_summary({
+            "total_income": econ['total_income'],
+            "total_expense": econ['total_expense'],
+            "net_profit": econ['net_profit'],
+            "roi": econ['roi'],
+            "tasks_evaluated": summary['statistics']['tasks_evaluated'],
+            "tasks_approved": summary['statistics']['tasks_approved'],
+            "tasks_executed": summary['statistics']['tasks_executed']
+        })
 
 
 def main():
