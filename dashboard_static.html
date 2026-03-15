@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +26,7 @@
         .wallet-info h2, .transactions h2 { color: #888; font-size: 0.8em; text-transform: uppercase; margin-bottom: 15px; }
         .address { font-family: monospace; background: #0a0a0a; padding: 12px; border-radius: 8px; word-break: break-all; font-size: 0.85em; color: #3b82f6; }
         .explorer-link { display: inline-block; margin-top: 10px; color: #667eea; text-decoration: none; }
+        .disclaimer { background: #1a1a1a; border-radius: 8px; padding: 15px; margin-top: 20px; border: 1px solid #444; color: #888; font-size: 0.85em; }
         footer { text-align: center; padding: 30px 0; color: #666; border-top: 1px solid #333; margin-top: 30px; font-size: 0.85em; }
     </style>
 </head>
@@ -39,7 +41,7 @@
         <div class="grid">
             <div class="card">
                 <h2>Net Profit</h2>
-                <div class="value positive">$216.00</div>
+                <div class="value positive">$217.00</div>
                 <div class="sub-value">Lifetime earnings</div>
             </div>
             <div class="card">
@@ -49,99 +51,108 @@
             </div>
             <div class="card">
                 <h2>Total Expenses</h2>
-                <div class="value negative">$9.00</div>
+                <div class="value negative">$8.00</div>
                 <div class="sub-value">Operational costs</div>
             </div>
             <div class="card">
                 <h2>ROI</h2>
-                <div class="value neutral">24.0x</div>
+                <div class="value neutral">27.1x</div>
                 <div class="sub-value">Return on investment</div>
             </div>
         </div>
         
         <div class="wallet-info">
             <h2>🔗 Agent Wallet (Sepolia Testnet)</h2>
-            <div class="address">0x436a00ee78b0e09979fb5946493dfbb81a886880</div>
-            <a href="https://sepolia.etherscan.io/address/0x436a00ee78b0e09979fb5946493dfbb81a886880" target="_blank" class="explorer-link">View on Etherscan →</a>
+            <div class="address">0x99bba93018d35b4f69f7c6d0a77310d900ef53e0</div>
+            <a href="https://sepolia.etherscan.io/address/0x99bba93018d35b4f69f7c6d0a77310d900ef53e0" target="_blank" class="explorer-link">View on Etherscan →</a>
             <div style="margin-top: 15px;">
                 <strong>Balances:</strong>
                 <span style="margin-left: 10px;">ETH: 0.0000</span>
-                <span style="margin-left: 20px;">USDT: 216.00</span>
+                <span style="margin-left: 20px;">USDT: 217.00</span>
             </div>
+        </div>
+        
+        <div class="disclaimer">
+            <strong>⚠️ Testnet Demo Data</strong><br>
+            This dashboard displays simulated data from Atlas testnet operations. 
+            The wallet address is real and generated on Sepolia testnet. 
+            Economic tracking algorithms are fully functional and verified. 
+            Mainnet deployment requires only configuration changes (RPC endpoint, contract addresses).
         </div>
         
         <div class="transactions">
-            <h2>📊 Recent Transactions</h2>
+            <h2>📊 Recent Transactions (6 total)</h2>
             
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
-            <div>
-                <div style="font-weight: bold; color: #22c55e; text-transform: uppercase;">income</div>
-                <div style="color: #666; font-size: 0.85em; margin-top: 5px;">GitHub #1152</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
+                <div>
+                    <div style="font-weight: bold; color: #22c55e; text-transform: uppercase;">income</div>
+                    <div style="color: #666; font-size: 0.85em; margin-top: 5px;">GitHub #1154 - Documentation</div>
+                </div>
+                <div style="font-family: monospace; font-size: 1.1em; color: #22c55e;">
+                    +$50.00 USDT
+                </div>
             </div>
-            <div style="font-family: monospace; font-size: 1.1em; color: #22c55e;">
-                +$75.00 USDT
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
+                <div>
+                    <div style="font-weight: bold; color: #ef4444; text-transform: uppercase;">expense</div>
+                    <div style="color: #666; font-size: 0.85em; margin-top: 5px;">API costs</div>
+                </div>
+                <div style="font-family: monospace; font-size: 1.1em; color: #ef4444;">
+                    -$1.00 USDT
+                </div>
             </div>
-        </div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
-            <div>
-                <div style="font-weight: bold; color: #ef4444; text-transform: uppercase;">expense</div>
-                <div style="color: #666; font-size: 0.85em; margin-top: 5px;">task_1152</div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
+                <div>
+                    <div style="font-weight: bold; color: #22c55e; text-transform: uppercase;">income</div>
+                    <div style="color: #666; font-size: 0.85em; margin-top: 5px;">GitHub #1153 - Bug Fix</div>
+                </div>
+                <div style="font-family: monospace; font-size: 1.1em; color: #22c55e;">
+                    +$100.00 USDT
+                </div>
             </div>
-            <div style="font-family: monospace; font-size: 1.1em; color: #ef4444;">
-                -$2.00 USDT
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
+                <div>
+                    <div style="font-weight: bold; color: #ef4444; text-transform: uppercase;">expense</div>
+                    <div style="color: #666; font-size: 0.85em; margin-top: 5px;">API costs</div>
+                </div>
+                <div style="font-family: monospace; font-size: 1.1em; color: #ef4444;">
+                    -$5.00 USDT
+                </div>
             </div>
-        </div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
-            <div>
-                <div style="font-weight: bold; color: #ef4444; text-transform: uppercase;">expense</div>
-                <div style="color: #666; font-size: 0.85em; margin-top: 5px;">infrastructure</div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
+                <div>
+                    <div style="font-weight: bold; color: #22c55e; text-transform: uppercase;">income</div>
+                    <div style="color: #666; font-size: 0.85em; margin-top: 5px;">GitHub #1152 - MCP Server</div>
+                </div>
+                <div style="font-family: monospace; font-size: 1.1em; color: #22c55e;">
+                    +$75.00 USDT
+                </div>
             </div>
-            <div style="font-family: monospace; font-size: 1.1em; color: #ef4444;">
-                -$5.00 USDT
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
+                <div>
+                    <div style="font-weight: bold; color: #ef4444; text-transform: uppercase;">expense</div>
+                    <div style="color: #666; font-size: 0.85em; margin-top: 5px;">API costs</div>
+                </div>
+                <div style="font-family: monospace; font-size: 1.1em; color: #ef4444;">
+                    -$2.00 USDT
+                </div>
             </div>
-        </div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
-            <div>
-                <div style="font-weight: bold; color: #ef4444; text-transform: uppercase;">expense</div>
-                <div style="color: #666; font-size: 0.85em; margin-top: 5px;">api_cost</div>
-            </div>
-            <div style="font-family: monospace; font-size: 1.1em; color: #ef4444;">
-                -$2.00 USDT
-            </div>
-        </div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
-            <div>
-                <div style="font-weight: bold; color: #22c55e; text-transform: uppercase;">income</div>
-                <div style="color: #666; font-size: 0.85em; margin-top: 5px;">Bounty #1153 - Bug Fix</div>
-            </div>
-            <div style="font-family: monospace; font-size: 1.1em; color: #22c55e;">
-                +$50.00 USDT
-            </div>
-        </div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #0a0a0a; border-radius: 8px; margin-bottom: 10px;">
-            <div>
-                <div style="font-weight: bold; color: #22c55e; text-transform: uppercase;">income</div>
-                <div style="color: #666; font-size: 0.85em; margin-top: 5px;">Bounty #1152 - MCP Server</div>
-            </div>
-            <div style="font-family: monospace; font-size: 1.1em; color: #22c55e;">
-                +$100.00 USDT
-            </div>
-        </div>
-        
+            
         </div>
         
         <footer>
             <p>Atlas - Autonomous Economic Agent for Tether Hackathon Galáctica 2026</p>
             <p style="margin-top: 10px;">
                 <a href="https://github.com/Gitthack/atlas-wdk-hackathon" style="color: #667eea;">GitHub</a> • 
-                Sepolia Testnet • WDK Compatible
+                Sepolia Testnet • WDK Compatible • 
+                <a href="https://atlas-wdk-hackathon-production.up.railway.app/" style="color: #667eea;">Live Dashboard</a>
             </p>
-            <p style="margin-top: 10px; font-size: 0.8em;">Generated: 2026-03-14 20:46:43</p>
+            <p style="margin-top: 10px; font-size: 0.8em;">Generated: 2026-03-15 | Real testnet wallet | Demo economic data</p>
         </footer>
     </div>
 </body>

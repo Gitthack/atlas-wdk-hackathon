@@ -13,7 +13,7 @@ from typing import Dict, List, Optional
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'wdk_wallet'))
 
-from wallet import AtlasWallet
+from wallet_real import AtlasRealWallet as AtlasWallet
 
 WORKSPACE = "/root/.openclaw/workspace"
 ATLAS_CORE = os.path.join(WORKSPACE, "scripts")
