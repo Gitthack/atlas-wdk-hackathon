@@ -34,11 +34,21 @@ class AtlasRealWallet:
     def __init__(self, private_key: Optional[str] = None, config_path: Optional[str] = None):
         self.config_path = config_path or os.path.expanduser("~/.atlas/real_wallet.json")
         
-        # Initialize Web3 connection with fallback
+        # Initialize Web3 connection with fallback and timeout
         self.w3 = None
+        import requests
+        from requests.adapters import HTTPAdapter
+        from urllib3.util.retry import Retry
+        
         for rpc in SEPOLIA_RPCS:
             try:
-                w3 = Web3(Web3.HTTPProvider(rpc))
+                # Create session with timeout
+                session = requests.Session()
+                session.mount('http://', HTTPAdapter(max_retries=0))
+                session.mount('https://', HTTPAdapter(max_retries=0))
+                
+                w3 = Web3(Web3.HTTPProvider(rpc, request_kwargs={'timeout': 3}))
+                # Quick connection check with timeout
                 if w3.is_connected():
                     self.w3 = w3
                     print(f"[WALLET] Connected to Sepolia via {rpc}")
@@ -85,22 +95,29 @@ class AtlasRealWallet:
         with open(self.config_path, 'w') as f:
             json.dump(self.wallet_data, f, indent=2)
     
-    def generate_wallet(self) -> str:
+    def generate_wallet(self, network: str = None) -> str:
         """Generate new wallet."""
         acct = Account.create()
         self.account = acct
         self.wallet_data["address"] = acct.address
         self.wallet_data["private_key"] = acct.key.hex()
+        if network:
+            self.wallet_data["network"] = network
         self._save_wallet()
         
         print(f"[WALLET] Generated new address: {acct.address}")
-        print(f"[WALLET] Save this private key securely: {acct.key.hex()}")
         
         return acct.address
     
     def get_address(self) -> Optional[str]:
         """Get wallet address."""
         return self.wallet_data.get("address")
+    
+    def get_balance(self, token: str = "USDT") -> float:
+        """Get balance for specified token (compatibility method)."""
+        if token == "ETH":
+            return self.get_balance_eth()
+        return self.get_balance_usdt()
     
     def get_balance_eth(self) -> float:
         """Get ETH balance."""
